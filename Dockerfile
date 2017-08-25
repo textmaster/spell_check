@@ -1,20 +1,26 @@
-# from https://github.com/techknowlogick/languagetool-docker
+# from https://github.com/silvio/docker-languagetool
+# I tried this one before which was causing segfaults (https://github.com/techknowlogick/languagetool-docker)
 
-FROM openjdk:8-jre-alpine
+FROM debian:jessie
 
-ENV LANGUAGETOOL_VERSION 3.8
+MAINTAINER Silvio Fricke <silvio.fricke@gmail.com>
 
-RUN apk update && \
-  apk add \
-  curl unzip && \
-  cd /srv && \
-  curl -o LanguageTool-$LANGUAGETOOL_VERSION.zip https://www.languagetool.org/download/LanguageTool-$LANGUAGETOOL_VERSION.zip && \
-  unzip LanguageTool-$LANGUAGETOOL_VERSION.zip && \
-  rm LanguageTool-$LANGUAGETOOL_VERSION.zip && \
-  rm -rf /var/cache/apk/*
+ENV VERSION 3.8
+ADD https://www.languagetool.org/download/LanguageTool-$VERSION.zip /LanguageTool-$VERSION.zip
 
-EXPOSE 8081
+RUN set -ex \
+    && mkdir -p /uploads /etc/apt/sources.list.d /var/cache/apt/archives/ \
+    && echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sources.list.d/jessie.backports.list \
+    && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get clean \
+    && apt-get update -y \
+    && apt-get -t jessie-backports install -y \
+	openjdk-8-jre-headless \
+	unzip \
+    && unzip LanguageTool-$VERSION.zip \
+    && rm LanguageTool-$VERSION.zip
 
-WORKDIR /srv/LanguageTool-$LANGUAGETOOL_VERSION
+WORKDIR /LanguageTool-$VERSION
 
-CMD java -cp languagetool-server.jar org.languagetool.server.HTTPServer --public --port 8081
+CMD ["java", "-cp", "languagetool-server.jar", "org.languagetool.server.HTTPServer", "--port", "8010", "--public", "--allow-origin", "'*'"]
+EXPOSE 8010
