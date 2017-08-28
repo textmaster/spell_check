@@ -1,4 +1,4 @@
-FROM textmasterapps/spell-check:0.3
+FROM textmasterapps/spell-check:0.4
 
 ENV HOME /home/app
 
