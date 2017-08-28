@@ -1,15 +1,17 @@
-# LanguageTool proofreading service
+# TextMaster Spell Check Service
 
-Dockerized LanguageTool proofreading service
-http://wiki.languagetool.org/public-http-api
+In order to provide a spell check service we use
+LanguageTool: http://wiki.languagetool.org/public-http-api
 
 ## Build & run
+
+We use port 8010 here only to avoid collisions.
 
 ```shell
 cd /path/to/repo
 docker build .
-docker tag <image_id> languagetool
-docker run -p 8010:8010 languagetool
+docker tag <image_id> spell_checker
+docker run -p 8010:80 spell_checker
 ```
 
 To get a list of available languages
