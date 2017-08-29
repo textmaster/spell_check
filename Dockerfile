@@ -5,7 +5,6 @@ ENV TMP_DIR /tmp/languagetool
 RUN mkdir -p $HOME && mkdir -p $TMP_DIR
 
 ENV DEBIAN_FRONTEND noninteractive
-ENV TEST_IMAGE_BUILD ondockerhub
 
 RUN set -ex \
     && apt-get update -y \
