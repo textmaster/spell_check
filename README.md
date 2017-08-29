@@ -5,9 +5,13 @@ LanguageTool: http://wiki.languagetool.org/public-http-api
 
 ## Build & run
 
+We use port 8010 here only to avoid collisions.
+
 ```shell
 cd /path/to/repo
-docker-compose up
+docker build .
+docker tag <image_id> spell_check
+docker run -p 8010:80 spell_check
 ```
 
 To get a list of available languages
