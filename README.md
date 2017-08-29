@@ -3,16 +3,24 @@
 In order to provide a spell check service we use
 LanguageTool: http://wiki.languagetool.org/public-http-api
 
-## Build & run
+## Build
 
 We use port 8010 here only to avoid collisions.
 
 ```shell
-cd /path/to/repo
 docker build .
-docker tag <image_id> spell_check
-docker run -p 8010:80 spell_check
+docker run -p 8010:80 <image_id>
 ```
+
+### Push Docker image
+
+```shell
+docker build -t textmasterapps/spell-check:<image_tag> .
+docker login
+docker push textmasterapps/spell-check:<image_tag>
+```
+
+### Endpoints
 
 To get a list of available languages
 
