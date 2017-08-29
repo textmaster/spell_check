@@ -5,19 +5,24 @@ LanguageTool: http://wiki.languagetool.org/public-http-api
 
 ## Build
 
-We use port 8010 here only to avoid collisions.
+Port 8010 is used here only to avoid collisions.
 
 ```shell
 docker build .
 docker run -p 8010:80 <image_id>
 ```
 
-### Push Docker image
+### Push/pull Docker image
+
+Docker Hub automatically builds the image on every push and adds the `latest` tag to it.
+It can then be pulled with `docker pull textmasterapps/spell_check`
+
+To tag it and push it manually run:
 
 ```shell
-docker build -t textmasterapps/spell-check:<image_tag> .
+docker build -t textmasterapps/spell_check:<image_tag> .
 docker login
-docker push textmasterapps/spell-check:<image_tag>
+docker push textmasterapps/spell_check:<image_tag>
 ```
 
 ### Endpoints
