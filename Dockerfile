@@ -10,8 +10,8 @@ RUN set -ex \
     && apt-get update -y \
     && apt-get install -y --no-install-recommends openjdk-8-jre-headless unzip curl
 
-ENV VERSION 3.8
-RUN curl --max-time 300 https://www.languagetool.org/download/LanguageTool-$VERSION.zip -o $TMP_DIR/LanguageTool-$VERSION.zip
+ENV VERSION 5.2
+RUN curl --max-time 300 -L https://www.languagetool.org/download/LanguageTool-$VERSION.zip -o $TMP_DIR/LanguageTool-$VERSION.zip
 
 RUN set -ex \
     && unzip $TMP_DIR/LanguageTool-$VERSION.zip -d $TMP_DIR \
