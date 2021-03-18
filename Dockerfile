@@ -22,7 +22,9 @@ RUN set -ex \
   && apt-get clean \
   && apt-get -y autoremove
 
+COPY extra_dics $HOME/extra_dics
+
 WORKDIR $HOME
 
-CMD ["java", "-cp", "languagetool-server.jar", "org.languagetool.server.HTTPServer", "--port", "80", "--public", "--allow-origin", "'*'"]
+CMD ["java", "-cp", "languagetool-server.jar", "org.languagetool.server.HTTPServer", "--port", "80", "--public", "--allow-origin", "'*'", "--config", "extra_dics/server.properties"]
 EXPOSE 80

@@ -12,6 +12,23 @@ docker build .
 docker run -p 8010:80 <image_id>
 ```
 
+## Add language
+
+It is possible to add Hunspell/Morfologik dictionaries dynamically to Languagetool.
+They will allow spell check but not grammar checks (which requires more rules).
+
+To add more languages:
+
+- Download Hunspell dictionary (.dic and .aff). Possibles sources are listed at [https://hunspell.github.io](https://hunspell.github.io). Put it in a new folder in `extra_dics`.
+- Optionally, it should be possible to [convert them to Morfologik format](https://dev.languagetool.org/hunspell-support) (.dict) to obtain quicker suggestions.
+- Download a list of the most common words in the new language from [there](https://github.com/mozilla-b2g/gaia/tree/master/apps/keyboard/js/imes/latin/dictionaries). Put the first 10K words in a `common_words.txt` file in the same directory. It is required by languagetool to be able to detect languages.
+- Update `server.properties` to declare the new language. The language code in the key must match an entry in languagetool's list. For example:
+
+```
+lang-no = Norwegian Bokmål
+lang-no-dictPath = /home/app/extra_dics/nb-NO/nb-NO.dic
+```
+
 ### Push/pull Docker image
 
 Docker Hub automatically builds the image on every push and adds the `latest` tag to it.
