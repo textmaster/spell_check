@@ -1,16 +1,16 @@
-FROM debian:stretch
+FROM debian:bookworm
 
-ENV HOME /home/app
-ENV TMP_DIR /tmp/languagetool
+ENV HOME=/home/app
+ENV TMP_DIR=/tmp/languagetool
 RUN mkdir -p $HOME && mkdir -p $TMP_DIR
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN set -ex \
     && apt-get update -y \
-    && apt-get install -y --no-install-recommends openjdk-8-jre-headless unzip curl
+    && apt-get install -y --no-install-recommends openjdk-17-jre-headless unzip curl
 
-ENV VERSION 5.2
+ENV VERSION=6.6
 RUN curl --max-time 300 -L https://www.languagetool.org/download/LanguageTool-$VERSION.zip -o $TMP_DIR/LanguageTool-$VERSION.zip
 
 RUN set -ex \
